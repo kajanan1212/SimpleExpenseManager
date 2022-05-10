@@ -16,14 +16,33 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import static org.junit.Assert.assertTrue;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+import org.junit.Before;
+import org.junit.Test;
+
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.InMemoryDemoExpenseManager;
+
+public class ApplicationTest {
+    private ExpenseManager expenseManager;
+
+    @Before
+    public void setUp() {
+        expenseManager = new InMemoryDemoExpenseManager();
+    }
+
+    @Test
+    public void testAddAccountOne() {
+        expenseManager.addAccount("190287R", "BOC", "Kajanan S.", 10000.0);
+        boolean results = expenseManager.getAccountNumbersList().contains("190287R");
+        assertTrue(results);
+    }
+
+    @Test
+    public void testAddAccountTwo() {
+        expenseManager.addAccount("000764333098", "NSB", "Kajanan S.", 1000.0);
+        boolean results = expenseManager.getAccountNumbersList().contains("000764333098");
+        assertTrue(results);
     }
 }
